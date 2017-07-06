@@ -19,8 +19,20 @@ Configuration sample:
     "open": "./open.sh",
     "close": "./close.sh",
     "state": "./check_state.sh",
-    "status_update_delay": 10
+    "status_update_delay": 15
   }
 ]
 
 ```
+## Explanation:
+
+Field                   | Description
+------------------------|------------
+**accessory**           | Must always be "GaragecCommand". (required)
+**name**                | Name of the Garage Door
+**open**                | open command. Examples: ./open.sh or node open.js (required)
+**close**               | close command. Examples: ./close.sh or node close.js (required)
+**state**               | state command.  Examples: ./check_state.js or node state.js (required)
+**status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
+
+The open, close, and state commands should return the following verbs: OPEN, CLOSED, OPENING, CLOSING.
