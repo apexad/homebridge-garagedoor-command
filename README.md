@@ -28,7 +28,7 @@ Configuration sample:
 
 Field                   | Description
 ------------------------|------------
-**accessory**           | Must always be "GaragecCommand". (required)
+**accessory**           | Must always be "GarageCommand". (required)
 **name**                | Name of the Garage Door
 **open**                | open command. Examples: ./open.sh or node open.js (required)
 **close**               | close command. Examples: ./close.sh or node close.js (required)
