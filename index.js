@@ -40,13 +40,23 @@ GarageCmdAccessory.prototype.setState = function(isClosed, callback) {
         callback(err || new Error('Error setting ' + accessory.name + ' to ' + state));
       } else {
         accessory.log('Set ' + accessory.name + ' to ' + state);
-        accessory.timer = setTimeout(function() {
-          if (stdout.indexOf('OPENING') > -1) {
-            accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.OPEN);
-          } else if (stdout.indexOf('CLOSING') > -1) {
-            accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSED);
-          }
-       }, accessory.statusUpdateDelay * 1000);
+        if (stdout.indexOf('OPENING') > -1) {
+          accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.OPENING);
+          setTimeout(
+            function() {
+              accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.OPEN);
+            },
+            accessory.statusUpdateDelay * 100
+          );
+        } else if (stdout.indexOf('CLOSING') > -1) {
+          accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSING);
+          setTimeout(
+            function() {
+              accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSED);
+            },
+            accessory.statusUpdateDelay * 1000
+          );
+        }
        callback(null);
      }
   });
