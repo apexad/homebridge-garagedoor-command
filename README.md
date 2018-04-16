@@ -5,7 +5,7 @@
 
 1. Install homebridge using: `npm install -g homebridge`
 2. Install this plugin using: `npm install -g homebridge-garagedoor-command`
-3. Update your configuration file. See `sample-config.json` in this repository for a sample.
+3. Update your configuration file. See the sample below.
 
 ## Configuration
 
@@ -35,4 +35,4 @@ Field                   | Description
 **state**               | state command.  Examples: ./check_state.js or node state.js (required)
 **status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
 
-The open, close, and state commands should return the following verbs: OPEN, CLOSED, OPENING, CLOSING.
+The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING.
