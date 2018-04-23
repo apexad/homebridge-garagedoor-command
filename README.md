@@ -36,3 +36,7 @@ Field                   | Description
 **status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
 
 The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING.
+
+## FAQ
+### Can I have multiple garage doors?
+Yes! but this is a feature of homebridge, not the plugin.  Just add an additonal accessory with a different name than your other garage door.
