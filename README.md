@@ -41,8 +41,8 @@ The open, close, and state commands must return the following verbs: OPEN, CLOSE
 ### Can I have multiple garage doors?
 Yes! but this is a feature of homebridge, not the plugin.  Just add an additonal accessory with a different name than your other garage door.
 
-### Is there polling so tht if I open my Garage door manually will I get a notification from HomeKit?
-No. Doing somehting like this, while possible, is not trivial to add.  Unfortunately, for my own use case this is not needed and is a very low priority for me to add.
+### Is there polling so that if I open my Garage door manually I will get a notification from HomeKit?
+No. Doing somehting like this, while possible, is not trivial to add.  Unfortunately, for my own use case this is not needed and is a very low priority for me to add. Don't expect this to be added anytime soon.  Pull requests for this to be added are welcome.
 
 ### Can you add 'x' feature?
-Yes, I probably could.  Will I?  Probably not.  If there is a feature you want to add, please feel free to add it and submit a pull request so others can benefit.
+Yes, I probably could.  Will I?  Probably not.  If there is a feature you want to add, please feel free to code it yourself and submit a pull request so others can benefit.
