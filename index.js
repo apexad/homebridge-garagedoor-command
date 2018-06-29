@@ -46,7 +46,7 @@ GarageCmdAccessory.prototype.setState = function(isClosed, callback) {
             function() {
               accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.OPEN);
             },
-            accessory.statusUpdateDelay * 100
+            accessory.statusUpdateDelay * 1000
           );
         } else if (stdout.indexOf('CLOSING') > -1) {
           accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, Characteristic.CurrentDoorState.CLOSING);
