@@ -15,9 +15,16 @@ function GarageCmdAccessory(log, config) {
   this.closeCommand = config.close;
   this.stateCommand = config.state;
   this.statusUpdateDelay = config.status_update_delay || 15;
+  this.pollStateDelay = config.poll_state_delay || 0;
 }
 
-GarageCmdAccessory.prototype.setState = function(isClosed, callback) {
+GarageCmdAccessory.prototype.setState = function(isClosed, callback, context) {
+  if (context === 'pollState') {
+    // The state has been updated by the pollState command - don't run the open/close command
+    callback(null);
+    return;
+  }
+
   var accessory = this;
   var state = isClosed ? 'close' : 'open';
   var prop = state + 'Command';
@@ -75,8 +82,42 @@ GarageCmdAccessory.prototype.getState = function(callback) {
       accessory.log('State of ' + accessory.name + ' is: ' + state);
       callback(null, Characteristic.CurrentDoorState[state]);
     }
+
+    if (accessory.pollStateDelay > 0) {
+      accessory.pollState();
+    }
   });
 };
+
+GarageCmdAccessory.prototype.pollState = function() {
+  var accessory = this;
+
+  // Clear any existing timer
+  if (accessory.stateTimer) {
+    clearTimeout(accessory.stateTimer);
+    accessory.stateTimer = null;
+  }
+
+  accessory.stateTimer = setTimeout(
+    function() {
+      accessory.getState(function(err, currentDeviceState) {
+        if (err) {
+          accessory.log(err);
+          return;
+        }
+
+        if (currentDeviceState === Characteristic.CurrentDoorState.OPEN || currentDeviceState === Characteristic.CurrentDoorState.CLOSED) {
+          // Set the target state to match the actual state
+          // If this isn't done the Home app will show the door in the wrong transitioning state (opening/closing)
+          accessory.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
+            .setValue(currentDeviceState, null, 'pollState');
+        }
+        accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, currentDeviceState);
+      })
+    },
+    accessory.pollStateDelay * 1000
+  );
+}
 
 GarageCmdAccessory.prototype.getServices = function() {
   this.informationService = new Service.AccessoryInformation();
