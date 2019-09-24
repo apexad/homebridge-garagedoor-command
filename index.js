@@ -16,6 +16,7 @@ function GarageCmdAccessory(log, config) {
   this.stateCommand = config.state;
   this.statusUpdateDelay = config.status_update_delay || 15;
   this.pollStateDelay = config.poll_state_delay || 0;
+  this.ignoreErrors = config.ignore_errors || false;
 }
 
 GarageCmdAccessory.prototype.setState = function(isClosed, callback, context) {
@@ -79,6 +80,9 @@ GarageCmdAccessory.prototype.getState = function(callback) {
       callback(err || new Error('Error getting state of ' + accessory.name));
     } else {
       var state = stdout.toString('utf-8').trim();
+      if (state === 'STOPPED' && accessory.ignoreErrors) {
+        state = 'CLOSED';
+      }
       accessory.log('State of ' + accessory.name + ' is: ' + state);
       callback(null, Characteristic.CurrentDoorState[state]);
     }

@@ -36,8 +36,9 @@ Field                   | Description
 **state**               | state command.  Examples: `./check_state.js` or `node state.js` (required)
 **status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
 **poll_state_delay**    | Time between polling for the garage door's state (leave blank to disable state polling)
+**ignore_erros**        | Causes the plugin to replace 'STOPPED' status with 'CLOSED'
 
-The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING.
+The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
 
 ## FAQ
 ### Can I have multiple garage doors?
@@ -45,3 +46,7 @@ Yes! but this is a feature of homebridge, not the plugin.  Just add an additonal
 
 ### Can you add 'x' feature?
 Yes, I probably could.  Will I?  Probably not.  If there is a feature you want to add, please feel free to code it yourself and submit a pull request so others can benefit.
+
+### What is the STOPPED status?
+STOPPED is a valid status for a door to be in, but in the Home App, it is actually reported as OPEN. If an error occures in getting the status, STOPPED should be returned, and it will be logged, but the plugin has the `ignore_errors` config option so that a false OPEN event won't be triggered. Be careful with `ignore_errors` as it can be somewhat dangerous to report an error as CLOSED.
+
