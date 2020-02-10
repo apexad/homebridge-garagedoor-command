@@ -21,7 +21,7 @@ Configuration sample:
     "state": "./check_state.sh",
     "status_update_delay": 15,
     "poll_state_delay": 20,
-    "debug": true
+    "log_pulling": true
   }
 ]
 
@@ -38,7 +38,7 @@ Field                   | Description
 **status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
 **poll_state_delay**    | Time between polling for the garage door's state (leave blank to disable state polling)
 **ignore_errors**       | Causes the plugin to replace 'STOPPED' status with 'CLOSED'
-**debug**               | Will write out every single status to the homebridge log
+**log_puling**          | Will log every single status check to the homebridge log
 
 The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
 

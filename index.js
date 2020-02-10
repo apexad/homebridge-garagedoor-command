@@ -17,7 +17,7 @@ function GarageCmdAccessory(log, config) {
   this.statusUpdateDelay = config.status_update_delay || 15;
   this.pollStateDelay = config.poll_state_delay || 0;
   this.ignoreErrors = config.ignore_errors || false;
-  this.debug = config.debug || false;
+  this.log_polling = config.log_polling || false;
 }
 
 GarageCmdAccessory.prototype.setState = function(isClosed, callback, context) {
@@ -84,7 +84,7 @@ GarageCmdAccessory.prototype.getState = function(callback) {
       if (state === 'STOPPED' && accessory.ignoreErrors) {
         state = 'CLOSED';
       }
-      if(accessory.debug)
+      if(accessory.log_polling)
         accessory.log('State of ' + accessory.name + ' is: ' + state);
         
       callback(null, Characteristic.CurrentDoorState[state]);
