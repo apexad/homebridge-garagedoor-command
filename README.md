@@ -45,7 +45,8 @@ The open, close, and state commands must return the following verbs: OPEN, CLOSE
 
 ## FAQ
 ### Can I have multiple garage doors?
-Yes! but this is a feature of homebridge, not the plugin.  Just add an additonal accessory block with a different name than your other garage door.
+Yes! but this is a feature of homebridge, not the plugin.  Add another accessory block with a different name than your other garage door.  
+If using [homebridge-config-ui-x](https://www.npmjs.com/package/homebridge-config-ui-x) you can do this in the plugin settings.
 
 ### Can you add 'x' feature?
 Yes, I probably could.  Will I?  Probably not.  If there is a feature you want to add, please feel free to code it yourself and submit a pull request so others can benefit.
