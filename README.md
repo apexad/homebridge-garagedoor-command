@@ -21,7 +21,8 @@ Configuration sample:
     "state": "./check_state.sh",
     "status_update_delay": 15,
     "poll_state_delay": 20,
-    "ignore_errors": false
+    "ignore_errors": false,
+    "log_polling": false
   }
 ]
 
@@ -30,14 +31,15 @@ Configuration sample:
 
 Field                   | Description
 ------------------------|------------
-**accessory**           | Must always be "GarageCommand". (required)
-**name**                | Name of the Garage Door
+**accessory**           | Must always be "GarageCommand" (required)
+**name**                | Name of the Garage Door (required)
 **open**                | open command. Examples: `./open.sh` or `node open.js` (required)
 **close**               | close command. Examples: `./close.sh` or `node close.js` (required)
 **state**               | state command.  Examples: `./check_state.js` or `node state.js` (required)
 **status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
 **poll_state_delay**    | Time between polling for the garage door's state (leave blank to disable state polling)
-**ignore_errors**       | Causes the plugin to replace 'STOPPED' status with 'CLOSED'
+**ignore_errors**       | Causes the plugin to replace 'STOPPED' status with 'CLOSED' (defaults to false)
+**log_polling**         | Will log every single status check to the homebridge log (default to false)
 
 The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
 
