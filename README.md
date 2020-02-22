@@ -1,9 +1,10 @@
 # homebridge-garagedoor-command
-[Homebridge](https://github.com/nfarina/homebridge) plugin that supports triggering commands to check state, open, and close a garage door.
+[Homebridge](https://github.com/nfarina/homebridge) plugin to control a garage door using command line functions  
+It supports commands to check `state`, `open`, and `close` the garage door
 
 ## Installation
 
-1. Install homebridge using: `npm install -g homebridge`
+1. Install Homebridge using: `npm install -g homebridge`
 2. Install this plugin using: `npm install -g homebridge-garagedoor-command`
 3. Update your configuration file. See the sample below.
 
