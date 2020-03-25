@@ -1,5 +1,8 @@
 # homebridge-garagedoor-command
-[Homebridge](https://github.com/nfarina/homebridge) plugin to control a garage door using command line functions  
+[![npm](https://badgen.net/npm/v/homebridge-garagedoor-command)](https://www.npmjs.com/package/homebridge-garagedoor-command)
+[![npm](https://badgen.net/npm/dt/homebridge-garagedoor-command)](https://www.npmjs.com/package/homebridge-garagedoor-command)
+
+[Homebridge](https://github.com/homebridge/homebridge) plugin to control a garage door using command line functions  
 It supports commands to check `state`, `open`, and `close` the garage door
 
 ## Installation
