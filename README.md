@@ -1,6 +1,8 @@
 # homebridge-garagedoor-command
+[![mit license](https://badgen.net/badge/license/MIT/red)](https://github.com/apexad/homebridge-mysmartblinds-bridge/blob/master/LICENSE)
 [![npm](https://badgen.net/npm/v/homebridge-garagedoor-command)](https://www.npmjs.com/package/homebridge-garagedoor-command)
 [![npm](https://badgen.net/npm/dt/homebridge-garagedoor-command)](https://www.npmjs.com/package/homebridge-garagedoor-command)
+[![donate](https://badgen.net/badge/donate/paypal/91BE09)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JS2VTL89E6VZ4&source=url)
 
 [Homebridge](https://github.com/homebridge/homebridge) plugin to control a garage door using command line functions  
 It supports commands to check `state`, `open`, and `close` the garage door
