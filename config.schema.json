@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "AladdinConnectGarageDoorOpener",
+  "pluginAlias": "GarageCommand",
   "pluginType": "accessory",
   "singular": false,
   "schema": {
