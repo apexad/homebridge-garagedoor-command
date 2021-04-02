@@ -18,6 +18,9 @@ function GarageCmdAccessory(log, config) {
   this.pollStateDelay = config.poll_state_delay || 0;
   this.ignoreErrors = config.ignore_errors || false;
   this.logPolling = config.log_polling || false;
+  this.manufacturer = config.manufacturer || 'Apexad';
+  this.model = config.model || 'Garage Command';
+  this.serialNum = config.serialNum || '001';
 }
 
 GarageCmdAccessory.prototype.setState = function(isClosed, callback, context) {
@@ -100,9 +103,9 @@ GarageCmdAccessory.prototype.pollState = function() {
 
 GarageCmdAccessory.prototype.getServices = function() {
   this.informationService = new Service.AccessoryInformation()
-    .setCharacteristic(Characteristic.Manufacturer, 'Apexad')
-    .setCharacteristic(Characteristic.Model, 'Garage-Command')
-    .setCharacteristic(Characteristic.SerialNumber, '1');
+    .setCharacteristic(Characteristic.Manufacturer, this.manufacturer)
+    .setCharacteristic(Characteristic.Model, this.model)
+    .setCharacteristic(Characteristic.SerialNumber, this.serialNum);
   this.garageDoorService = new Service.GarageDoorOpener(this.name);
 
   this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
