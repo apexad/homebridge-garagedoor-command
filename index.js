@@ -128,22 +128,20 @@ GarageCmdAccessory.prototype.pollState = function() {
 }
 
 GarageCmdAccessory.prototype.getServices = function() {
-  this.informationService = new Service.AccessoryInformation();
+  this.informationService = new Service.AccessoryInformation()
+    .setCharacteristic(Characteristic.Manufacturer, 'Apexad')
+    .setCharacteristic(Characteristic.Model, 'Garage-Command')
+    .setCharacteristic(Characteristic.SerialNumber, '1');
   this.garageDoorService = new Service.GarageDoorOpener(this.name);
 
-  this.informationService
-  .setCharacteristic(Characteristic.Manufacturer, 'Garage Command')
-  .setCharacteristic(Characteristic.Model, 'Homebridge Plugin')
-  .setCharacteristic(Characteristic.SerialNumber, '001');
-
   this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
-  .on('set', this.setState.bind(this));
+    .on('set', this.setState.bind(this));
 
   if (this.stateCommand) {
     this.garageDoorService.getCharacteristic(Characteristic.CurrentDoorState)
-    .on('get', this.getState.bind(this));
+      .on('get', this.getState.bind(this));
     this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
-    .on('get', this.getState.bind(this));
+      .on('get', this.getState.bind(this));
   }
 
   return [this.informationService, this.garageDoorService];
