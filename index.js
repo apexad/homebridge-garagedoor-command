@@ -71,60 +71,31 @@ GarageCmdAccessory.prototype.setState = function(isClosed, callback, context) {
   });
 };
 
-GarageCmdAccessory.prototype.getState = function(callback) {
-  var accessory = this;
-  var command = accessory.stateCommand;
-
-  exec(command, function (err, stdout, stderr) {
-    if (err) {
-      accessory.log('Error: ' + err);
-      callback(err || new Error('Error getting state of ' + accessory.name));
-    } else {
-      var state = stdout.toString('utf-8').trim();
-      if (state === 'STOPPED' && accessory.ignoreErrors) {
-        state = 'CLOSED';
-      }
-      if (accessory.logPolling) {
-        accessory.log('State of ' + accessory.name + ' is: ' + state);
-      }
-
-      callback(null, Characteristic.CurrentDoorState[state]);
-    }
-
-    if (accessory.pollStateDelay > 0) {
-      accessory.pollState();
-    }
-  });
-};
-
 GarageCmdAccessory.prototype.pollState = function() {
   var accessory = this;
 
-  // Clear any existing timer
   if (accessory.stateTimer) {
     clearTimeout(accessory.stateTimer);
     accessory.stateTimer = null;
   }
 
-  accessory.stateTimer = setTimeout(
-    function() {
-      accessory.getState(function(err, currentDeviceState) {
-        if (err) {
-          accessory.log(err);
-          return;
-        }
+  var command = accessory.stateCommand;
 
-        if (currentDeviceState === Characteristic.CurrentDoorState.OPEN || currentDeviceState === Characteristic.CurrentDoorState.CLOSED) {
-          // Set the target state to match the actual state
-          // If this isn't done the Home app will show the door in the wrong transitioning state (opening/closing)
-          accessory.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
-            .setValue(currentDeviceState, null, 'pollState');
-        }
-        accessory.garageDoorService.setCharacteristic(Characteristic.CurrentDoorState, currentDeviceState);
-      })
-    },
-    accessory.pollStateDelay * 1000
-  );
+  exec(command, function (err, stdout, stderr) {
+    var state = stdout.toString('utf-8').trim();
+    var doorState = Characteristic.CurrentDoorState[state] || Characteristic.CurrentDoorState.STOPPED;
+
+    if (doorState === Characteristic.CurrentDoorState.STOPPED && accessory.ignoreErrors) {
+      doorState = Characteristic.CurrentDoorState.CLOSED;
+    } else {
+      accessory.log('Error: ' + err);
+    }
+
+    accessory.getCharacteristic(Characteristic.CurrentDoorState).setValue(doorState);
+    accessory.getCharacteristic(Characteristic.TargetDoorState).setValue(doorState);
+  });
+
+  accessory.stateTimer = setTimeout(accessory.pollSate(), accessory.pollStateDelay * 1000);
 }
 
 GarageCmdAccessory.prototype.getServices = function() {
@@ -137,12 +108,7 @@ GarageCmdAccessory.prototype.getServices = function() {
   this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
     .on('set', this.setState.bind(this));
 
-  if (this.stateCommand) {
-    this.garageDoorService.getCharacteristic(Characteristic.CurrentDoorState)
-      .on('get', this.getState.bind(this));
-    this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
-      .on('get', this.getState.bind(this));
-  }
+  if (this.stateCommand) { this.pollState(); }
 
   return [this.informationService, this.garageDoorService];
 };
