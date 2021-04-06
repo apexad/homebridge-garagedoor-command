@@ -84,7 +84,16 @@ GarageCmdAccessory.prototype.pollState = function() {
 
   var command = accessory.stateCommand;
 
-  exec(command, function (err, stdout, stderr) {
+  exec(command,
+    {
+      encoding: 'utf8',
+      timeout: 10000,
+      maxBuffer: 200*1024,
+      killSignal: 'SIGTERM',
+      cwd: null,
+      env: null
+    },
+    function (err, stdout, stderr) {
     var state = stdout.toString('utf-8').trim();
     var doorState = Characteristic.CurrentDoorState[state] || Characteristic.CurrentDoorState.STOPPED;
 
