@@ -91,7 +91,7 @@ GarageCmdAccessory.prototype.getState = function(callback) {
         accessory.log('State of ' + accessory.name + ' is: ' + state);
       }
 
-      callback(null, Characteristic.CurrentDoorState[state]);
+      callback(null, Characteristic.CurrentDoorState[state] || Characteristic.CurrentDoorState.CLOSED);
     }
 
     if (accessory.pollStateDelay > 0) {
