@@ -50,17 +50,17 @@
     "manufacturer": {
       "title": "Garage Door Manufacturer",
       "type": "string",
-      "required": false
+      "required": false,
     },
     "model": {
       "title": "Garage Door Model",
       "type": "string",
-      "required": false
+      "required": false,
     },
     "serialNum": {
       "title": "Serial Number",
       "type": "string",
-      "required": false
+      "required": false,
     }
   },
   "form": [

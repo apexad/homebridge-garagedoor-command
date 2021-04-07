@@ -1,6 +1,6 @@
 {
   "name": "homebridge-garagedoor-command",
-  "version": "0.7.1",
+  "version": "0.8.0-beta.0",
   "description": "Garage Door plugin for homebridge: https://github.com/nfarina/homebridge",
   "keywords": [
     "homebridge-plugin",
