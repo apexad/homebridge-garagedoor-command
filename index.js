@@ -103,8 +103,8 @@ GarageCmdAccessory.prototype.pollState = function() {
       accessory.log('Error: ' + err);
     }
 
-    accessory.getCharacteristic(Characteristic.CurrentDoorState).setValue(doorState);
-    accessory.getCharacteristic(Characteristic.TargetDoorState).setValue(doorState);
+    accessory.garageDoorService.getCharacteristic(Characteristic.CurrentDoorState).setValue(doorState);
+    accessory.garageDoorService.getCharacteristic(Characteristic.TargetDoorState).setValue(doorState);
   });
 
   accessory.stateTimer = setTimeout(accessory.pollState(), accessory.pollStateDelay * 1000);
