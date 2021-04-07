@@ -46,21 +46,6 @@
         "title": "Log Polling",
         "type": "boolean"
       }
-    },
-    "manufacturer": {
-      "title": "Garage Door Manufacturer",
-      "type": "string",
-      "required": false
-    },
-    "model": {
-      "title": "Garage Door Model",
-      "type": "string",
-      "required": false
-    },
-    "serialNum": {
-      "title": "Serial Number",
-      "type": "string",
-      "required": false
     }
   },
   "form": [
@@ -69,17 +54,6 @@
     "close",
     "state",
     "status_update_delay",
-    {
-      "type": "fieldset",
-      "expandable": true,
-      "title": "Branding Settings",
-      "description": "Use if you want custom manufacture/model/serial number",
-      "items": [
-        "manufacturer",
-        "model",
-        "serialNum"
-      ]
-    },
     {
       "type": "fieldset",
       "expandable": true,
@@ -94,7 +68,7 @@
       "type": "fieldset",
       "expandable": true,
       "title": "Advanced Settings",
-      "description": "Don't change these, unless you understand what you're doing",
+      "description": "Don't change these, unless you understand what you're doing.",
       "items": [
         "ignore_errors"
       ]
