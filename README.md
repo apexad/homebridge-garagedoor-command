@@ -7,15 +7,11 @@
 [Homebridge](https://github.com/homebridge/homebridge) plugin to control a garage door using command line functions  
 It supports commands to check `state`, `open`, and `close` the garage door
 
-## Installation
-
-1. Install Homebridge using: `npm install -g homebridge`
-2. Install this plugin using: `npm install -g homebridge-garagedoor-command`
-3. Update your configuration file. See the sample below.
-
 ## Configuration
+This easiest way to use this plugin is to use [homebridge-config-ui-x](https://www.npmjs.com/package/homebridge-config-ui-x).  
+To configure manually, add to the `accessories` section of Homebridge's `config.json` after installing the plugin as shown below.
 
-Configuration sample:
+**Config:**
 
 ```json
 "accessories": [
@@ -33,7 +29,6 @@ Configuration sample:
 ]
 
 ```
-## Explanation:
 
 Field                   | Description
 ------------------------|------------
@@ -43,11 +38,23 @@ Field                   | Description
 **close**               | close command. Examples: `./close.sh` or `node close.js` (required)
 **state**               | state command.  Examples: `./check_state.js` or `node state.js` (required)
 **status_update_delay** | Time to have door in opening or closing state (defaults to 15 seconds)
-**poll_state_delay**    | Time between polling for the garage door's state (leave blank to disable state polling)
+**poll_state_delay**    | Time between polling for the garage door's state (leave blank or set to 0 to disable state polling)
 **ignore_errors**       | Causes the plugin to replace 'STOPPED' status with 'CLOSED' (defaults to false)
 **log_polling**         | Will log every single status check to the homebridge log (default to false)
 
-The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
+```diff
+- The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
+```
+
+## Branding
+The following config options can also be added manually or configured in [homebridge-config-ui-x](https://www.npmjs.com/package/homebridge-config-ui-x):
+
+Field                   | Description
+------------------------|------------
+**manufacturer**        | Manufacturer to display instead of default 'Apexad'
+**model**               | Model to display instead of default 'Garage Commmand'
+**serialNum**           | Serial Number to display instead of default '001'
+
 
 ## FAQ
 ### Can I have multiple garage doors?
