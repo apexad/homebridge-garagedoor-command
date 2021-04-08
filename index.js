@@ -95,8 +95,10 @@ GarageCmdAccessory.prototype.getState = function(callback) {
     } else {
       var state = 'OPEN';
 
-      if ((stdout.indexOf('STOPPED') && accessory.ignoreErrors) || (stdout.indexOf('CLOSED') > -1)) {
+      if ((stdout.indexOf('STOPPED') > -1 && accessory.ignoreErrors) || (stdout.indexOf('CLOSED') > -1)) {
         state = 'CLOSED';
+      } else if (stdout.indexOf('STOPPED') > -1 && !accessory.ignoreErrors) {
+        state = 'STOPPED';
       } else if (stdout.indexOf('CLOSING') > -1) {
         state = 'CLOSING';
       } else if (stdout.indexOf('OPENING') > -1) {
