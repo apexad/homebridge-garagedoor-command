@@ -9,9 +9,8 @@ It supports commands to check `state`, `open`, and `close` the garage door
 
 ## Configuration
 This easiest way to use this plugin is to use [homebridge-config-ui-x](https://www.npmjs.com/package/homebridge-config-ui-x).  
-To configure manually, add to the `accessories` section of Homebridge's `config.json` after installing the plugin as shown below.
+To configure manually, add to the `accessories` section of Homebridge's `config.json` after installing the plugin as shown below:
 
-**Config:**
 
 ```json
 "accessories": [
@@ -42,9 +41,7 @@ Field                   | Description
 **ignore_errors**       | Causes the plugin to replace 'STOPPED' status with 'CLOSED' (defaults to false)
 **log_polling**         | Will log every single status check to the homebridge log (default to false)
 
-```diff
-- The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
-```
+* The open, close, and state commands must return the following verbs: OPEN, CLOSED, OPENING, CLOSING, STOPPED.
 
 ## Branding
 The following config options can also be added manually or configured in [homebridge-config-ui-x](https://www.npmjs.com/package/homebridge-config-ui-x):
@@ -58,12 +55,13 @@ Field                   | Description
 
 ## FAQ
 ### Can I have multiple garage doors?
-Yes! but this is a feature of homebridge, not the plugin.  Add another accessory block with a different name than your other garage door.  
+Yes! but this is a feature of homebridge, not the plugin.  
+Add another accessory block with a different name than your other garage door.  
 If using [homebridge-config-ui-x](https://www.npmjs.com/package/homebridge-config-ui-x) you can do this in the plugin settings.
 
 ### Can you add 'x' feature?
-Yes, I probably could.  Will I?  Probably not.  If there is a feature you want to add, please feel free to code it yourself and submit a pull request so others can benefit.
+Yes, I probably could.  Will I?  Probably not.  It does not hurt to ask though but I will also gladly look at any PRs too.
 
 ### What is the STOPPED status?
-STOPPED is a valid status for a door to be in, but in the Home App, it is actually reported as OPEN. If an error occures in getting the status, STOPPED should be returned, and it will be logged, but the plugin has the `ignore_errors` config option so that a false OPEN event won't be triggered. Be careful with `ignore_errors` as it can be somewhat dangerous to report an error as CLOSED.
+STOPPED is a valid status for a door to be in, but in the Home App, it is reported as OPEN (with a slightly different icon). If an error occures in getting the status, STOPPED should be returned, and it will be logged, but the plugin has the `ignore_errors` config option so that a false OPEN event won't be triggered. Be careful with `ignore_errors` as it can be somewhat dangerous to report an error as CLOSED.
 
