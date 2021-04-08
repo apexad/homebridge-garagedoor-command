@@ -12,55 +12,56 @@
         "required": true
       },
       "open": {
-        "title": "Command to open door",
+        "title": "Command to open garage door",
         "type": "string",
         "required": true
       },
       "close": {
-        "title": "Command to close door",
+        "title": "Command to close garage door",
         "type": "string",
         "required": true
       },
       "state": {
-        "title": "Command to get state/satus of the door",
+        "title": "Command to get state/status of garage door",
         "type": "string",
         "required": true
       },
       "status_update_delay": {
-        "title": "Status Update Delay",
+        "title": "Status update delay",
+        "descroption": "how long it takes for garage door to open/close (in seconds)",
         "type": "string",
         "default": "15",
-        "placeholder": "# of seconds to close",
         "required": true
       },
       "poll_state_delay": {
-        "title": "Enable Polling (in seconds)",
-        "type": "integer",
-        "placeholder": "# of seconds"
+        "title": "Enable polling",
+        "description": "poll state/status of garage door (in seconds) (use 0 to disable polling)",
+        "type": "integer"
       },
       "ignore_errors": {
-        "title": "Ignore Errors",
+        "title": "Ignore errors",
+        "description": "STOPPED will report as CLOSED",
         "type": "boolean"
       },
       "log_polling": {
         "title": "Log Polling",
         "type": "boolean"
+      },
+      "manufacturer": {
+        "title": "Garage Door Manufacturer",
+        "type": "string",
+        "required": false
+      },
+      "model": {
+        "title": "Garage Door Model",
+        "type": "string",
+        "required": false
+      },
+      "serialNum": {
+        "title": "Serial Number",
+        "type": "string",
+        "required": false
       }
-    },
-    "manufacturer": {
-      "title": "Garage Door Manufacturer",
-      "type": "string",
-      "required": false
-    },
-    "model": {
-      "title": "Garage Door Model",
-      "type": "string",
-      "required": false
-    },
-    "serialNum": {
-      "title": "Serial Number",
-      "type": "string",
-      "required": false
     }
   },
   "form": [
@@ -99,6 +100,5 @@
         "ignore_errors"
       ]
     }
-  ],
-  "display": null
+  ]
 }
