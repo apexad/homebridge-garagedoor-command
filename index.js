@@ -48,7 +48,7 @@ GarageCmdAccessory.prototype.setState = function(isClosed, callback, context) {
     },
     function (err, stdout, stderr) {
       if (err) {
-        accessory.log('Error: ' + err);
+        accessory.log('Error: ' + err + ', command output: ' + stderr);
         callback(err || new Error('Error setting ' + accessory.name + ' to ' + state));
       } else {
         accessory.log('Set ' + accessory.name + ' to ' + state);
@@ -78,20 +78,36 @@ GarageCmdAccessory.prototype.getState = function(callback) {
   var accessory = this;
   var command = accessory.stateCommand;
 
-  exec(command, function (err, stdout, stderr) {
+  exec(
+    command,
+    {
+      encoding: 'utf8',
+      timeout: 10000,
+      maxBuffer: 200*1024,
+      killSignal: 'SIGTERM',
+      cwd: null,
+      env: null
+    },
+    function (err, stdout, stderr) {
     if (err) {
-      accessory.log('Error: ' + err);
+      accessory.log('Error: ' + err + ', command output: ' + stderr);
       callback(err || new Error('Error getting state of ' + accessory.name));
     } else {
-      var state = stdout.toString('utf-8').trim();
-      if (state === 'STOPPED' && accessory.ignoreErrors) {
+      var state = 'OPEN';
+
+      if ((stdout.indexOf('STOPPED') && accessory.ignoreErrors) || (stdout.indexOf('CLOSED') > -1)) {
         state = 'CLOSED';
+      } else if (stdout.indexOf('CLOSING') > -1) {
+        state = 'CLOSING';
+      } else if (stdout.indexOf('OPENING') > -1) {
+        state = 'OPENING';
       }
+
       if (accessory.logPolling) {
         accessory.log('State of ' + accessory.name + ' is: ' + state);
       }
 
-      callback(null, Characteristic.CurrentDoorState[state] || Characteristic.CurrentDoorState.CLOSED);
+      callback(null, Characteristic.CurrentDoorState[state]);
     }
 
     if (accessory.pollStateDelay > 0) {
