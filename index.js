@@ -157,13 +157,11 @@ GarageCmdAccessory.prototype.getServices = function() {
   this.garageDoorService = new Service.GarageDoorOpener(this.name);
 
   this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
-  .on('set', this.setState.bind(this));
+    .on('set', this.setState.bind(this));
 
   if (this.stateCommand) {
     this.garageDoorService.getCharacteristic(Characteristic.CurrentDoorState)
-    .on('get', this.getState.bind(this));
-    this.garageDoorService.getCharacteristic(Characteristic.TargetDoorState)
-    .on('get', this.getState.bind(this));
+      .on('get', this.getState.bind(this));
   }
 
   return [this.informationService, this.garageDoorService];
